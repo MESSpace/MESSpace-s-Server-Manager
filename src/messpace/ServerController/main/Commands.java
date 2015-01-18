@@ -1,10 +1,7 @@
 package messpace.ServerController.main;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Scanner;
@@ -117,10 +114,7 @@ public class Commands {
 		System.out.println("Warning! Depending On Your Minecraft Configurations, It May Take Time To Load!");
 		Process p = Runtime.getRuntime().exec(startupCommand);
 		OutputStream os = p.getOutputStream();
-		InputStream is = p.getInputStream();
 		BufferedWriter bf = new BufferedWriter(new OutputStreamWriter(os));
-		BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		String currentLine = br.readLine();
 		boolean isDone = true;
 		System.out.println();
 		System.out.println("Now That The Server Is Online, You Can Carry Out The Server Related Commands!");
@@ -211,6 +205,34 @@ public class Commands {
 					bf.newLine();
 					bf.flush();
 					System.out.println("Command Executed!");
+					break;
+				case "reboot":
+					System.out.println("Rebooting Server...");
+					bf.write("say Server going down for reboot in 10 seconds!");
+					bf.newLine();
+					bf.flush();
+					try {
+						Thread.sleep(10000);
+					} catch(InterruptedException ex) {
+						Thread.currentThread().interrupt();
+					}
+					bf.write("say Server Shutting Down!");
+					bf.newLine();
+					bf.flush();
+					bf.write("save-all");
+					bf.newLine();
+					bf.flush();
+					bf.write("stop");
+					bf.newLine();
+					bf.flush();
+					try {
+						Thread.sleep(5000);
+					} catch(InterruptedException ex) {
+						Thread.currentThread().interrupt();
+					}
+					Main.rebootServer();
+				default:
+					System.out.println("Unknown command!");
 					break;
 			}
 			

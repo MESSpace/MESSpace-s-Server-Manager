@@ -40,5 +40,9 @@ public class Main {
 	public static void rethread() throws IOException {
 		Commands.startServer();
 	}
+	
+	public static void rebootServer() throws IOException {
+		Commands.startServer();
+	}
 
 }
