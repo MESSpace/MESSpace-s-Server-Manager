@@ -130,6 +130,7 @@ public class Commands {
 					System.out.println("op - OPs the player of your choice");
 					System.out.println("message - Sends a message in the chat");
 					System.out.println("command - Executes an external command");
+					System.out.println("reboot - Reboots the server.");
 					try {
 						Thread.sleep(3000);
 					} catch(InterruptedException ex) {
